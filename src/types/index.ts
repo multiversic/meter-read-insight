@@ -7,12 +7,12 @@ export interface Image {
   premise: string;
   dateCreation: string;
   heureCreation: string;
-  codeAnomalie?: string;
-  codeAnomaliePhoto?: string;
-  codeActivite?: string;
+  codeAnomalie?: string | undefined;
+  codeAnomaliePhoto?: string | undefined;
+  codeActivite?: string | undefined;
   statut: StatutImage;
   probabiliteClassification: number; // 0-100
-  scoreExtraction?: number; // 0-100
+  scoreExtraction?: number | undefined; // 0-100
   agentId: number;
 }
 
@@ -88,7 +88,7 @@ export interface Prediction {
   cheminFichier: string;
   numeroCompteur: string;
   statutPredit: StatutImage;
-  indexExtrait?: string;
+  indexExtrait?: string | undefined;
   scoreConfiance: number;
   dateCreation: string;
 }
