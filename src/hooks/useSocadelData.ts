@@ -89,8 +89,13 @@ export function useResultatsExtraction(params: { statut?: string; page?: number 
 export function useLancerExtraction() {
   const qc = useQueryClient();
   return useMutation({
-    mutationFn: (ids: number[]) =>
-      ids.length === 1 ? extractionService.lancer(ids[0]!) : extractionService.lancerLot(ids),
+    mutationFn: async (ids: number[]) => {
+      if (ids.length === 1) {
+        await extractionService.lancer(ids[0]!);
+        return { lances: 1 };
+      }
+      return extractionService.lancerLot(ids);
+    },
     onSuccess: () => {
       toast.success("Extraction lancée");
       void qc.invalidateQueries({ queryKey: ["extraction"] });
