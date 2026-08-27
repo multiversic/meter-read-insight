@@ -10,6 +10,7 @@ import { PageHeader } from "@/components/socadel/PageHeader";
 import { StatusBadge } from "@/components/socadel/StatusBadge";
 import { Label } from "@/components/ui/label";
 import { usePredictions } from "@/hooks/useSocadelData";
+import { formatDate } from "@/lib/format";
 import type { Prediction } from "@/types";
 
 export const Route = createFileRoute("/predictions")({
