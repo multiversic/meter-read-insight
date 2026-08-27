@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AgentsRouteImport } from './routes/agents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ImagesRouteImport } from './routes/images'
 import { Route as LoginRouteImport } from './routes/login'
@@ -18,6 +19,11 @@ import { Route as VerificationRouteImport } from './routes/verification'
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AgentsRoute = AgentsRouteImport.update({
+  id: '/agents',
+  path: '/agents',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DashboardRoute = DashboardRouteImport.update({
@@ -43,6 +49,7 @@ const VerificationRoute = VerificationRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/agents': typeof AgentsRoute
   '/dashboard': typeof DashboardRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
@@ -50,6 +57,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/agents': typeof AgentsRoute
   '/dashboard': typeof DashboardRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
@@ -58,6 +66,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/agents': typeof AgentsRoute
   '/dashboard': typeof DashboardRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
@@ -65,14 +74,23 @@ export interface FileRoutesById {
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/images' | '/login' | '/verification'
+  fullPaths:
+    '/' | '/agents' | '/dashboard' | '/images' | '/login' | '/verification'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/images' | '/login' | '/verification'
-  id: '__root__' | '/' | '/dashboard' | '/images' | '/login' | '/verification'
+  to: '/' | '/agents' | '/dashboard' | '/images' | '/login' | '/verification'
+  id:
+    | '__root__'
+    | '/'
+    | '/agents'
+    | '/dashboard'
+    | '/images'
+    | '/login'
+    | '/verification'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AgentsRoute: typeof AgentsRoute
   DashboardRoute: typeof DashboardRoute
   ImagesRoute: typeof ImagesRoute
   LoginRoute: typeof LoginRoute
@@ -86,6 +104,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/agents': {
+      id: '/agents'
+      path: '/agents'
+      fullPath: '/agents'
+      preLoaderRoute: typeof AgentsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/dashboard': {
@@ -121,6 +146,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AgentsRoute: AgentsRoute,
   DashboardRoute: DashboardRoute,
   ImagesRoute: ImagesRoute,
   LoginRoute: LoginRoute,
