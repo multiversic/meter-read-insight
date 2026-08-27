@@ -60,10 +60,10 @@ function PredictionsPage() {
     },
     { key: "score", header: "Confiance", cell: (p) => <ConfidenceScore score={p.scoreConfiance} /> },
     {
-      key: "periode",
-      header: "Période",
+      key: "date",
+      header: "Date",
       hideOnMobile: true,
-      cell: (p) => <span className="text-muted-foreground">{p.periode}</span>,
+      cell: (p) => <span className="text-muted-foreground">{formatDate(p.dateCreation)}</span>,
     },
   ];
 
