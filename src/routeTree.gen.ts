@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgentsRouteImport } from './routes/agents'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ExtractionRouteImport } from './routes/extraction'
+import { Route as FacturationRouteImport } from './routes/facturation'
 import { Route as ImagesRouteImport } from './routes/images'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as VerificationRouteImport } from './routes/verification'
@@ -37,6 +38,11 @@ const ExtractionRoute = ExtractionRouteImport.update({
   path: '/extraction',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FacturationRoute = FacturationRouteImport.update({
+  id: '/facturation',
+  path: '/facturation',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ImagesRoute = ImagesRouteImport.update({
   id: '/images',
   path: '/images',
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/agents': typeof AgentsRoute
   '/dashboard': typeof DashboardRoute
   '/extraction': typeof ExtractionRoute
+  '/facturation': typeof FacturationRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
   '/verification': typeof VerificationRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/agents': typeof AgentsRoute
   '/dashboard': typeof DashboardRoute
   '/extraction': typeof ExtractionRoute
+  '/facturation': typeof FacturationRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
   '/verification': typeof VerificationRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/agents': typeof AgentsRoute
   '/dashboard': typeof DashboardRoute
   '/extraction': typeof ExtractionRoute
+  '/facturation': typeof FacturationRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
   '/verification': typeof VerificationRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/agents'
     | '/dashboard'
     | '/extraction'
+    | '/facturation'
     | '/images'
     | '/login'
     | '/verification'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/agents'
     | '/dashboard'
     | '/extraction'
+    | '/facturation'
     | '/images'
     | '/login'
     | '/verification'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/agents'
     | '/dashboard'
     | '/extraction'
+    | '/facturation'
     | '/images'
     | '/login'
     | '/verification'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   AgentsRoute: typeof AgentsRoute
   DashboardRoute: typeof DashboardRoute
   ExtractionRoute: typeof ExtractionRoute
+  FacturationRoute: typeof FacturationRoute
   ImagesRoute: typeof ImagesRoute
   LoginRoute: typeof LoginRoute
   VerificationRoute: typeof VerificationRoute
@@ -151,6 +164,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ExtractionRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/facturation': {
+      id: '/facturation'
+      path: '/facturation'
+      fullPath: '/facturation'
+      preLoaderRoute: typeof FacturationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/images': {
       id: '/images'
       path: '/images'
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   AgentsRoute: AgentsRoute,
   DashboardRoute: DashboardRoute,
   ExtractionRoute: ExtractionRoute,
+  FacturationRoute: FacturationRoute,
   ImagesRoute: ImagesRoute,
   LoginRoute: LoginRoute,
   VerificationRoute: VerificationRoute,
