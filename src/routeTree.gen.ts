@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as DashboardRouteImport } from './routes/dashboard'
 import { Route as ImagesRouteImport } from './routes/images'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as VerificationRouteImport } from './routes/verification'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const VerificationRoute = VerificationRouteImport.update({
+  id: '/verification',
+  path: '/verification',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
+  '/verification': typeof VerificationRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/dashboard': typeof DashboardRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
+  '/verification': typeof VerificationRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/dashboard': typeof DashboardRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
+  '/verification': typeof VerificationRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/dashboard' | '/images' | '/login'
+  fullPaths: '/' | '/dashboard' | '/images' | '/login' | '/verification'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/dashboard' | '/images' | '/login'
-  id: '__root__' | '/' | '/dashboard' | '/images' | '/login'
+  to: '/' | '/dashboard' | '/images' | '/login' | '/verification'
+  id: '__root__' | '/' | '/dashboard' | '/images' | '/login' | '/verification'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +76,7 @@ export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRoute
   ImagesRoute: typeof ImagesRoute
   LoginRoute: typeof LoginRoute
+  VerificationRoute: typeof VerificationRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/verification': {
+      id: '/verification'
+      path: '/verification'
+      fullPath: '/verification'
+      preLoaderRoute: typeof VerificationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRoute,
   ImagesRoute: ImagesRoute,
   LoginRoute: LoginRoute,
+  VerificationRoute: VerificationRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
