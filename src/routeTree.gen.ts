@@ -16,6 +16,7 @@ import { Route as ExtractionRouteImport } from './routes/extraction'
 import { Route as FacturationRouteImport } from './routes/facturation'
 import { Route as ImagesRouteImport } from './routes/images'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as PredictionsRouteImport } from './routes/predictions'
 import { Route as VerificationRouteImport } from './routes/verification'
 
 const IndexRoute = IndexRouteImport.update({
@@ -53,6 +54,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PredictionsRoute = PredictionsRouteImport.update({
+  id: '/predictions',
+  path: '/predictions',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VerificationRoute = VerificationRouteImport.update({
   id: '/verification',
   path: '/verification',
@@ -67,6 +73,7 @@ export interface FileRoutesByFullPath {
   '/facturation': typeof FacturationRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
+  '/predictions': typeof PredictionsRoute
   '/verification': typeof VerificationRoute
 }
 export interface FileRoutesByTo {
@@ -77,6 +84,7 @@ export interface FileRoutesByTo {
   '/facturation': typeof FacturationRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
+  '/predictions': typeof PredictionsRoute
   '/verification': typeof VerificationRoute
 }
 export interface FileRoutesById {
@@ -88,6 +96,7 @@ export interface FileRoutesById {
   '/facturation': typeof FacturationRoute
   '/images': typeof ImagesRoute
   '/login': typeof LoginRoute
+  '/predictions': typeof PredictionsRoute
   '/verification': typeof VerificationRoute
 }
 export interface FileRouteTypes {
@@ -100,6 +109,7 @@ export interface FileRouteTypes {
     | '/facturation'
     | '/images'
     | '/login'
+    | '/predictions'
     | '/verification'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/facturation'
     | '/images'
     | '/login'
+    | '/predictions'
     | '/verification'
   id:
     | '__root__'
@@ -120,6 +131,7 @@ export interface FileRouteTypes {
     | '/facturation'
     | '/images'
     | '/login'
+    | '/predictions'
     | '/verification'
   fileRoutesById: FileRoutesById
 }
@@ -131,6 +143,7 @@ export interface RootRouteChildren {
   FacturationRoute: typeof FacturationRoute
   ImagesRoute: typeof ImagesRoute
   LoginRoute: typeof LoginRoute
+  PredictionsRoute: typeof PredictionsRoute
   VerificationRoute: typeof VerificationRoute
 }
 
@@ -185,6 +198,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/predictions': {
+      id: '/predictions'
+      path: '/predictions'
+      fullPath: '/predictions'
+      preLoaderRoute: typeof PredictionsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/verification': {
       id: '/verification'
       path: '/verification'
@@ -203,6 +223,7 @@ const rootRouteChildren: RootRouteChildren = {
   FacturationRoute: FacturationRoute,
   ImagesRoute: ImagesRoute,
   LoginRoute: LoginRoute,
+  PredictionsRoute: PredictionsRoute,
   VerificationRoute: VerificationRoute,
 }
 export const routeTree = rootRouteImport
