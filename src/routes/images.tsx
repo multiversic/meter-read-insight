@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Images as ImagesIcon, Loader2, Upload } from "lucide-react";
+import { Images as ImagesIcon, Loader2, Play, Upload, X } from "lucide-react";
 import { useRef, useState } from "react";
 import { AppLayout } from "@/components/socadel/AppLayout";
 import { ConfidenceScore } from "@/components/socadel/ConfidenceScore";
@@ -36,6 +36,7 @@ const STATUTS: (StatutImage | "TOUS")[] = ["TOUS", "OK", "KO", "EnAttenteValidat
 function ImagesPage() {
   const [filters, setFilters] = useState<ImagesFilters>({ statut: "TOUS", agentId: "TOUS", page: 1 });
   const [selected, setSelected] = useState<Image | null>(null);
+  const [pendingFiles, setPendingFiles] = useState<File[]>([]);
   const inputRef = useRef<HTMLInputElement>(null);
   const { data, isLoading, isError, refetch } = useImages(filters);
   const { data: agents } = useAgents();
