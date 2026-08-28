@@ -6,7 +6,6 @@ import {
   FileSpreadsheet,
   Images,
   LayoutDashboard,
-  LineChart,
   LogOut,
   Menu,
   Receipt,
@@ -26,7 +25,6 @@ const NAV = [
   { to: "/agents", label: "Évaluation des agents", icon: Users },
   { to: "/extraction", label: "Extraction & résultats", icon: FileSpreadsheet },
   { to: "/facturation", label: "Facturation", icon: Receipt },
-  { to: "/predictions", label: "Prédictions", icon: LineChart },
 ] as const;
 
 function Brand() {

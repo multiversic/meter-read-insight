@@ -10,7 +10,6 @@ import { PageHeader } from "@/components/socadel/PageHeader";
 import { TagBadge } from "@/components/socadel/StatusBadge";
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { useLancerExtraction, useResultatsExtraction } from "@/hooks/useSocadelData";
 import { formatDate } from "@/lib/format";
 import { extractionService } from "@/services/extraction.service";
@@ -32,13 +31,10 @@ export const Route = createFileRoute("/extraction")({
   component: ExtractionPage,
 });
 
-const STATUTS = ["TOUS", "Enregistre", "AVerifier"] as const;
-
 function ExtractionPage() {
-  const [statut, setStatut] = useState<string>("TOUS");
   const [page, setPage] = useState(1);
   const [selection, setSelection] = useState<number[]>([]);
-  const { data, isLoading, isError, refetch } = useResultatsExtraction({ statut, page });
+  const { data, isLoading, isError, refetch } = useResultatsExtraction({ page });
   const lancer = useLancerExtraction();
 
   function toggle(id: number) {
@@ -112,27 +108,6 @@ function ExtractionPage() {
           </>
         }
       />
-
-      <div className="mb-5 flex flex-wrap items-end gap-4 rounded-2xl border border-border bg-card p-4 shadow-soft">
-        <div className="space-y-1.5">
-          <Label htmlFor="f-statut-extraction">Statut d'enregistrement</Label>
-          <select
-            id="f-statut-extraction"
-            className="h-9 rounded-xl border border-input bg-card px-3 text-sm"
-            value={statut}
-            onChange={(e) => {
-              setStatut(e.target.value);
-              setPage(1);
-            }}
-          >
-            {STATUTS.map((s) => (
-              <option key={s} value={s}>
-                {s === "TOUS" ? "Tous" : s === "Enregistre" ? "Enregistré" : "À vérifier"}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
 
       {isError ? (
         <ErrorState onRetry={() => void refetch()} />
