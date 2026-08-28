@@ -102,21 +102,56 @@ function ImagesPage() {
               aria-label="Sélectionner des photos de compteurs"
               onChange={(e) => {
                 const files = Array.from(e.target.files ?? []);
-                if (files.length) upload.mutate(files);
+                if (files.length) setPendingFiles((prev) => [...prev, ...files]);
                 e.target.value = "";
               }}
             />
-            <Button onClick={() => inputRef.current?.click()} disabled={upload.isPending}>
+            <Button variant="outline" onClick={() => inputRef.current?.click()} disabled={upload.isPending}>
+              <Upload className="mr-2 size-4" aria-hidden />
+              Importer des images
+            </Button>
+            <Button
+              onClick={() =>
+                upload.mutate(pendingFiles, { onSuccess: () => setPendingFiles([]) })
+              }
+              disabled={pendingFiles.length === 0 || upload.isPending}
+            >
               {upload.isPending ? (
                 <Loader2 className="mr-2 size-4 animate-spin" aria-hidden />
               ) : (
-                <Upload className="mr-2 size-4" aria-hidden />
+                <Play className="mr-2 size-4" aria-hidden />
               )}
-              Importer des images
+              Lancer l'extraction ({pendingFiles.length})
             </Button>
           </>
         }
       />
+
+      {pendingFiles.length > 0 ? (
+        <div className="mb-5 rounded-2xl border border-border bg-card p-4 shadow-soft">
+          <p className="mb-3 text-sm font-medium text-foreground">
+            {pendingFiles.length} image(s) prête(s) à être envoyée(s) au backend
+          </p>
+          <ul className="flex flex-wrap gap-2">
+            {pendingFiles.map((file, index) => (
+              <li
+                key={`${file.name}-${index}`}
+                className="flex items-center gap-2 rounded-xl border border-border bg-muted px-3 py-1.5 text-xs"
+              >
+                <span className="max-w-40 truncate">{file.name}</span>
+                <button
+                  type="button"
+                  aria-label={`Retirer ${file.name}`}
+                  onClick={() => setPendingFiles((prev) => prev.filter((_, i) => i !== index))}
+                  className="text-muted-foreground hover:text-foreground"
+                >
+                  <X className="size-3.5" aria-hidden />
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ) : null}
 
       <div className="mb-5 grid gap-4 rounded-2xl border border-border bg-card p-4 shadow-soft sm:grid-cols-2 xl:grid-cols-4">
         <div className="space-y-1.5">
