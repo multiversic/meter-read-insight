@@ -32,13 +32,10 @@ export const Route = createFileRoute("/extraction")({
   component: ExtractionPage,
 });
 
-const STATUTS = ["TOUS", "Enregistre", "AVerifier"] as const;
-
 function ExtractionPage() {
-  const [statut, setStatut] = useState<string>("TOUS");
   const [page, setPage] = useState(1);
   const [selection, setSelection] = useState<number[]>([]);
-  const { data, isLoading, isError, refetch } = useResultatsExtraction({ statut, page });
+  const { data, isLoading, isError, refetch } = useResultatsExtraction({ page });
   const lancer = useLancerExtraction();
 
   function toggle(id: number) {
